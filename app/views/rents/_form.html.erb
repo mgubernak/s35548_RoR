@@ -1,0 +1,31 @@
+<%= form_with(model: rent, local: true) do |form| %>
+  <% if rent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rent.errors.count, "error") %> prohibited this rent from being saved:</h2>
+
+      <ul>
+        <% rent.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="input-group mb-3 w-60">
+    <div class="input-group-prepend col-sm-2.5">
+      <span class="input-group-text">Data wypozyczenia</span>
+    <%= form.date_select :date,class: "form-control col-sm-1" %>&nbsp;&nbsp;&nbsp;
+      <span class="input-group-text">Data oddania</span>
+    </div>
+    <%= form.date_select :date,class: "form-control col-sm-1" %>&nbsp;&nbsp;&nbsp;
+    <%= form.submit class: "btn btn-primary btn-sm col-sm-2"%>
+  </div>
+  <div class="field bg-light w-50">
+    <b>Czytelnicy:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <div class="form-check form-check-inline">
+       <%= form.collection_check_boxes :reader_ids, Reader.all, :id, :fname do |x| %>
+       <%= x.check_box class: "form-check-input" %>&nbsp;&nbsp;<%= x.label class: "form-check-label" %>&nbsp;&nbsp;&nbsp;&nbsp;
+         <% end %>
+     </div>
+  </div>
+<% end %>

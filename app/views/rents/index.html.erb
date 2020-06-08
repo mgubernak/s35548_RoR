@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+<div class="jumbotron">
+  <h1>Rents</h1>
+
+  <table class="table table-light table-sm">
+    <thead>
+    <tr>
+      <th>Czytelnik:</th>
+      <th>Data wypozyczenia</th>
+      <th>Data oddania</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @rents.each do |rent| %>
+      <tr>
+        <td>
+          <% rent.readers.each do |r| %>
+          <%= r.fname %><br>
+            <% end %>
+        </td>
+        <td><%= rent.date %></td>
+        <td><%= rent.date %></td>
+        <td><%= link_to 'Wyswietl', rent, class: "btn btn-primary btn-sm col-sm-5"   %></td>
+        <td><%= link_to 'Edytuj', edit_rent_path(rent), class: "btn btn-primary btn-sm col-sm-5"   %></td>
+        <td><%= link_to 'Usun', rent, method: :delete, data: { confirm: 'Jestes pewien?' }, class: "btn btn-primary btn-sm col-sm-5"   %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <%= render partial: 'form', locals: {rent: Rent.new}%>
+</div>
+
